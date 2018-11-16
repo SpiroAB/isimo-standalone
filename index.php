@@ -6,13 +6,11 @@ if (!isset($config)) {
     }
 }
 
-$config_token = '';
-$url_token = preg_replace('#.*/#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-if (isset($config->token)) {
-    $config_token = $config->token;
+if (!isset($url_token)) {
+    $url_token = preg_replace('#.*/#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 }
 
-if (!$url_token || $url_token !== $config_token) {
+if (!isset($config->token) || empty($url_token) || $url_token !== $config->token) {
     header('HTTP/1.1 404 Not found');
     exit;
 }
