@@ -19,7 +19,8 @@ header('Content-type: application/json');
 $data = (object)[];
 $data->report = [];
 $data->time = time();
-$data->client = 'isimo-standalone v0.0.1';
+// TODO: Get this dynamically
+$data->client = 'isimo-standalone v1.0.4';
 
 // Place holders
 $data->software = 'php';
