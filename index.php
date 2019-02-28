@@ -114,6 +114,7 @@ foreach ($composer_dirs as $composer_dir) {
         continue;
     }
     $data->composer_lock = file_get_contents($composer_dir . "/composer.lock");
+    $data->composer_json = file_get_contents($composer_dir . "/composer.json");
     $composer_lock = json_decode($data->composer_lock);
     if ($composer_lock && isset($composer_lock->packages) && is_array($composer_lock->packages)) {
         foreach ($composer_lock->packages as $composer_package) {
