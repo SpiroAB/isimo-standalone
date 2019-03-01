@@ -33,7 +33,7 @@
 	$data->report = [];
 	$data->time = time();
 	// TODO: Get this dynamically
-	$data->client = 'isimo-standalone v1.0.5';
+	$data->client = 'isimo-standalone v1.0.6';
 
 	// Place holders
 	$data->software = 'php';
