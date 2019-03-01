@@ -1,5 +1,6 @@
 {
     "name": "SpiroAB/isimo-standalone",
+    "license": "MIT",
     "description": "Isimo Client Standalone plugin",
     "type": "standalone",
     "require": {

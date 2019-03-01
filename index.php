@@ -1,5 +1,9 @@
 <?php
 
+	/** @noinspection NullCoalescingOperatorCanBeUsedInspection can't be used on PHP 5.6 */
+
+	namespace SpiroAB\Isimo;
+
 	if(!isset($config))
 	{
 		$config = (object) [];
@@ -53,6 +57,7 @@
 
 		try
 		{
+			/** @noinspection PhpFullyQualifiedNameUsageInspection no include of root scope */
 			$db = new \mysqli($dbhost, $dbuser, $dbpass);
 			$db->select_db($dbname);
 			$result = $db->query('SHOW VARIABLES');
@@ -62,6 +67,7 @@
 			}
 			$result->close();
 		}
+			/** @noinspection PhpFullyQualifiedNameUsageInspection no include of root scope */
 		catch(\Exception $e)
 		{
 			$data->error[] = $e->getMessage();
@@ -136,8 +142,8 @@
 		{
 			continue;
 		}
-		$data->composer_lock = file_get_contents($composer_dir . "/composer.lock");
-		$data->composer_json = file_get_contents($composer_dir . "/composer.json");
+		$data->composer_lock = file_get_contents($composer_dir . '/composer.lock');
+		$data->composer_json = file_get_contents($composer_dir . '/composer.json');
 		$composer_lock = json_decode($data->composer_lock);
 		if($composer_lock && isset($composer_lock->packages) && is_array($composer_lock->packages))
 		{
@@ -165,12 +171,9 @@
 	{
 		$data->version = $version;
 	}
-	else
+	else if(file_exists(__DIR__ . '/version.php'))
 	{
-		if(file_exists(__DIR__ . '/version.php'))
-		{
-			$data->version = require __DIR__ . '/version.php';
-		}
+		$data->version = require __DIR__ . '/version.php';
 	}
 
 	if($data->version === '0.0.0')
