@@ -1,0 +1,8 @@
+{
+    "name": "SpiroAB/isimo-standalone",
+    "description": "Isimo Client Standalone plugin",
+    "type": "standalone",
+    "require": {
+        "ext-json": "*"
+    }
+}
