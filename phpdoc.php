@@ -5,15 +5,15 @@
 		 * Class config
 		 * @package PHPDoc
 		 *
-		 * @property string|null composerdir
-		 * @property string|null dbhost
-		 * @property string|null dbname
-		 * @property string|null dbpass
-		 * @property string|null dbuser
-		 * @property string|null gitdir
-		 * @property string software
-		 * @property string|null token
-		 * @property string|null version_package_name
+		 * @property string|null composerdir use this composerdir insted of default one
+		 * @property string|null dbhost database host
+		 * @property string|null dbname database databasename
+		 * @property string|null dbpass database password
+		 * @property string|null dbuser database username
+		 * @property string|null gitdir use this gitdir insted of default one
+		 * @property string software report application as this software name
+		 * @property string|null token validate request against this token
+		 * @property string|null version_package_name take version from this composer package
 		 */
 		class config extends pretendObject {}
 
