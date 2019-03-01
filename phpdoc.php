@@ -13,6 +13,7 @@
 		 * @property string|null gitdir
 		 * @property string software
 		 * @property string|null token
+		 * @property string|null version_package_name
 		 */
 		class config extends pretendObject {}
 

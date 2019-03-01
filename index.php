@@ -158,26 +158,33 @@
 		}
 		$data->composer_lock = file_get_contents($composer_dir . '/composer.lock');
 		$data->composer_json = file_get_contents($composer_dir . '/composer.json');
+
+		if(empty($config->version_package_name))
+		{
+			break;
+		}
+
 		/** @var \PHPDoc\composerLock $composer_lock */
 		$composer_lock = json_decode($data->composer_lock);
-		if($composer_lock && isset($composer_lock->packages) && is_array($composer_lock->packages))
+		if(empty($composer_lock->packages) || !is_array($composer_lock->packages))
 		{
-			foreach($composer_lock->packages as $composer_package)
+			break;
+		}
+		foreach($composer_lock->packages as $composer_package)
+		{
+			if(empty($composer_package->name))
 			{
-				if(empty($composer_package->name))
-				{
-					continue;
-				}
-				if(empty($composer_package->version))
-				{
-					continue;
-				}
-				if($composer_package->name !== 'silverstripe/framework')
-				{
-					continue;
-				}
-				$data->version = $composer_package->version;
+				continue;
 			}
+			if(empty($composer_package->version))
+			{
+				continue;
+			}
+			if($composer_package->name !== $config->version_package_name)
+			{
+				continue;
+			}
+			$data->version = $composer_package->version;
 		}
 		break;
 	}

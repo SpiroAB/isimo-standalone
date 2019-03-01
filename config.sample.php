@@ -2,6 +2,7 @@
 
 	return (object) [
 		'software' => 'Exemple',
+		'version_package_name' => null,
 		'token' => 'aaaaaaaaaaaaaaaa',
 
 		'composerdir' => dirname(__DIR__),
