@@ -4,5 +4,12 @@
     "type": "standalone",
     "require": {
         "ext-json": "*"
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "platform": {
+            "php": "v5.6.30"
+        }
     }
 }
