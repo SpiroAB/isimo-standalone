@@ -23,7 +23,7 @@
 	$data = (object) [];
 	$data->report = [];
 	$data->time = time();
-	$data->client = 'isimo-standalone v0.0.1';
+	$data->client = 'isimo-standalone v1.0.0';
 
 	// Place holders
 	$data->software = 'php';
