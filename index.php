@@ -6,6 +6,7 @@
 
 	if(!isset($config))
 	{
+		/** @var \PHPDoc\config $config */
 		$config = (object) [];
 		if(file_exists(__DIR__ . '/config.php'))
 		{
@@ -15,6 +16,7 @@
 
 	if(!isset($url_token))
 	{
+		/** @var string $url_token */
 		$url_token = preg_replace('#.*/#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 	}
 
@@ -25,6 +27,8 @@
 	}
 
 	header('Content-type: application/json');
+
+	/** @var \PHPDoc\report $data */
 	$data = (object) [];
 	$data->report = [];
 	$data->time = time();
@@ -50,9 +54,13 @@
 	{
 		$data->mysql = [];
 
+		/** @var string $dbname */
 		$dbname = $config->dbname;
+		/** @var string $dbuser */
 		$dbuser = isset($config->dbuser) ? $config->dbuser : 'root';
+		/** @var string $dbpass */
 		$dbpass = isset($config->dbpass) ? $config->dbpass : NULL;
+		/** @var string $dbhost */
 		$dbhost = isset($config->dbhost) ? $config->dbhost : 'localhost';
 
 		try
@@ -63,6 +71,7 @@
 			$result = $db->query('SHOW VARIABLES');
 			while($row = $result->fetch_row())
 			{
+				/** @var string[] $row */
 				$data->mysql[$row[0]] = $row[1];
 			}
 			$result->close();
@@ -74,8 +83,9 @@
 		}
 	}
 
-	// Git
+	//<editor-fold desc="Git">
 	$data->gitsha = NULL;
+	/** @var string[] $git_dirs */
 	$git_dirs = [
 		'',
 		dirname(__DIR__) . '/.git',
@@ -96,6 +106,7 @@
 		{
 			continue;
 		}
+		/** @var string $git_head */
 		$git_head = file_get_contents($git_dir . '/HEAD');
 		if(!$git_head)
 		{
@@ -110,6 +121,7 @@
 		{
 			continue;
 		}
+		/** @var string $git_ref */
 		$git_ref = file_get_contents($git_dir . '/' . $git_head);
 		if(!$git_ref)
 		{
@@ -123,8 +135,10 @@
 		$data->gitsha = $git_ref;
 		break;
 	}
+	//</editor-fold>
 
-	// composer
+	//<editor-fold desc="Composer">
+	/** @var string[] $composer_dirs */
 	$composer_dirs = [
 		'',
 		dirname(__DIR__) . '/.git',
@@ -144,16 +158,17 @@
 		}
 		$data->composer_lock = file_get_contents($composer_dir . '/composer.lock');
 		$data->composer_json = file_get_contents($composer_dir . '/composer.json');
+		/** @var \PHPDoc\composerLock $composer_lock */
 		$composer_lock = json_decode($data->composer_lock);
 		if($composer_lock && isset($composer_lock->packages) && is_array($composer_lock->packages))
 		{
 			foreach($composer_lock->packages as $composer_package)
 			{
-				if(!isset($composer_package->name))
+				if(empty($composer_package->name))
 				{
 					continue;
 				}
-				if(!isset($composer_package->version))
+				if(empty($composer_package->version))
 				{
 					continue;
 				}
@@ -166,9 +181,11 @@
 		}
 		break;
 	}
+	//</editor-fold>
 
 	if(isset($version))
 	{
+		/** @var string version */
 		$data->version = $version;
 	}
 	else if(file_exists(__DIR__ . '/version.php'))
