@@ -19,7 +19,7 @@ header('Content-type: application/json');
 $data = (object)[];
 $data->report = [];
 $data->time = time();
-$data->client = 'isimo-standalone v1.0.2';
+$data->client = 'isimo-standalone v1.0.3';
 
 // Place holders
 $data->software = 'php';
